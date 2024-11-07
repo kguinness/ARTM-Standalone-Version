@@ -81,6 +81,41 @@ def detect_index_upwards(hand_landmarks):
         return True
     return False
 
+# Function to detect rock and roll salute gesture
+def detect_rock_and_roll_salute(hand_landmarks):
+    # Define the landmarks for each finger
+    thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+    thumb_ip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_IP]
+
+    index_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+    index_finger_pip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP]
+
+    middle_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+    middle_finger_pip = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_PIP]
+
+    ring_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
+    ring_finger_pip = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_PIP]
+
+    pinky_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP]
+    pinky_finger_pip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP]
+
+    # Check if the thumb, index, and pinky are extended
+    thumb_extended = thumb_tip.y < thumb_ip.y
+    index_extended = index_finger_tip.y < index_finger_pip.y
+    pinky_extended = pinky_finger_tip.y < pinky_finger_pip.y
+
+    # Check if the middle and ring fingers are curled
+    middle_curled = middle_finger_tip.y > middle_finger_pip.y
+    ring_curled = ring_finger_tip.y > ring_finger_pip.y
+
+    # If the conditions for the rock and roll salute are met, return True
+    if thumb_extended and index_extended and pinky_extended and middle_curled and ring_curled:
+        return True
+    return False
+
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -137,6 +172,9 @@ def video_feed():
             # Check for the index up gesture
             elif detect_index_upwards(hand_landmarks):
                 gesture = 'Index Up Detected'
+                cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            elif detect_rock_and_roll_salute(hand_landmarks):
+                gesture = 'Rock and Roll Salute Detected'
                 cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     # Encode the frame back to JPEG to send back to the client
