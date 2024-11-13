@@ -162,6 +162,11 @@ def video_feed():
             mp_drawing.DrawingSpec(color=(0, 0, 255), thickness=2, circle_radius=2),
         )
 
+        # Bottom-right box holding gesture symbol
+        box_x, box_y = frame.shape[1] - 150, frame.shape[0] - 50
+        box_w, box_h = 140, 40
+        gesture_detected = False  # Flag to check if any gesture is detected
+
     # Draw hand landmarks and detect gestures
     if hand_results.multi_hand_landmarks:
         for hand_landmarks in hand_results.multi_hand_landmarks:
@@ -198,6 +203,7 @@ def video_feed():
                 elif time.time() - gesture_timers['Peace Sign'] >= GESTURE_DETECTION_TIME:
                     # If 3 seconds have passed, confirm the gesture
                     gesture = 'Peace Sign Detected'
+                    gesture_detected = True
                     cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             else:
                 # Reset the timer if the gesture is not detected
@@ -209,6 +215,7 @@ def video_feed():
                     gesture_timers['Thumbs Up'] = time.time()
                 elif time.time() - gesture_timers['Thumbs Up'] >= GESTURE_DETECTION_TIME:
                     gesture = 'Thumbs Up Detected'
+                    gesture_detected = True
                     cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             else:
                 gesture_timers['Thumbs Up'] = 0
@@ -219,6 +226,7 @@ def video_feed():
                     gesture_timers['Index Up'] = time.time()
                 elif time.time() - gesture_timers['Index Up'] >= GESTURE_DETECTION_TIME:
                     gesture = 'Index Up Detected'
+                    gesture_detected = True
                     cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             else:
                 gesture_timers['Index Up'] = 0
@@ -229,9 +237,19 @@ def video_feed():
                     gesture_timers['Rock and Roll Salute'] = time.time()
                 elif time.time() - gesture_timers['Rock and Roll Salute'] >= GESTURE_DETECTION_TIME:
                     gesture = 'Rock and Roll Salute Detected'
+                    gesture_detected = True
                     cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             else:
                 gesture_timers['Rock and Roll Salute'] = 0
+
+        # Draw the box at the bottom right if a gesture is detected
+        if gesture_detected:
+            # Draw the box
+            box_x = frame.shape[1] - 60  # Move closer to the right edge
+            box_y = frame.shape[0] - 70  # Move slightly up from the bottom
+
+            box_size = 50
+            cv2.rectangle(frame, (box_x, box_y), (box_x + box_size, box_y + box_size), (0, 255, 0), 2)
 
     # Encode the frame back to JPEG to send back to the client
     ret, jpeg = cv2.imencode('.jpg', frame)
