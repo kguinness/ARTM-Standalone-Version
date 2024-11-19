@@ -11,11 +11,12 @@ gesture_timers = {
     'Peace Sign': 0,
     'Thumbs Up': 0,
     'Index Up': 0,
-    'Rock and Roll Salute': 0
+    'Rock and Roll Salute': 0,
+    'Fist': 0
 }
 
 # Constant for the required time for detecting the gesture
-GESTURE_DETECTION_TIME = 3  # 3 seconds
+GESTURE_DETECTION_TIME = 1.5 # 1.5 seconds
 
 # Initialize MediaPipe Pose and Hands classes
 mp_pose = mp.solutions.pose
@@ -126,6 +127,34 @@ def detect_rock_and_roll_salute(hand_landmarks):
     return False
 
 
+def detect_fist(hand_landmarks):
+    # Get landmarks for all fingers and thumb
+    thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+    thumb_ip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_IP]
+
+    index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+    index_pip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP]
+
+    middle_tip = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+    middle_pip = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_PIP]
+
+    ring_tip = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
+    ring_pip = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_PIP]
+
+    pinky_tip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP]
+    pinky_pip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP]
+
+    # Check if all fingers and thumb are curled (tips below their PIP/IP joints)
+    thumb_curled = thumb_tip.y > thumb_ip.y
+    index_curled = index_tip.y > index_pip.y
+    middle_curled = middle_tip.y > middle_pip.y
+    ring_curled = ring_tip.y > ring_pip.y
+    pinky_curled = pinky_tip.y > pinky_pip.y
+
+    # Return True if all are curled
+    if thumb_curled and index_curled and middle_curled and ring_curled and pinky_curled:
+        return True
+    return False
 
 
 @app.route('/')
@@ -241,6 +270,17 @@ def video_feed():
                     cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             else:
                 gesture_timers['Rock and Roll Salute'] = 0
+
+            # Check for the Fist gesture
+            if detect_fist(hand_landmarks):
+                if gesture_timers['Fist'] == 0:
+                    gesture_timers['Fist'] = time.time()
+                elif time.time() - gesture_timers['Fist'] >= GESTURE_DETECTION_TIME:
+                    gesture = 'Fist Gesture Detected'
+                    gesture_detected = True
+                    cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            else:
+                gesture_timers['Fist'] = 0
 
         # Draw the box at the bottom right if a gesture is detected
         if gesture_detected:
