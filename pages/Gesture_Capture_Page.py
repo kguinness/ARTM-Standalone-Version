@@ -3,6 +3,7 @@ import sys
 import time
 import numpy as np
 import mediapipe as mp
+import webbrowser
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer
@@ -23,6 +24,7 @@ class GestureCapturePage(QWidget):
         # Set up the page layout
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
+        self.google_opened = False  # Flag to track if Google has been opened
 
         # Create a label to display the video feed
         self.video_label = QLabel()
@@ -55,11 +57,32 @@ class GestureCapturePage(QWidget):
 
         self.GESTURE_DETECTION_TIME = 1.5  # 1.5 seconds
 
+    # Insert Gesture Box in Bottom Right Corner
+    def draw_box_on_frame(self, frame):
+        # Get frame dimensions
+        height, width, _ = frame.shape
+
+        # Define box size and position (bottom-right corner)
+        box_width, box_height = 100, 100  # Adjust box size as needed
+        top_left_x = width - box_width - 10  # 10px margin from the right edge
+        top_left_y = height - box_height - 10  # 10px margin from the bottom edge
+        bottom_right_x = width - 10
+        bottom_right_y = height - 10
+
+        # Draw the rectangle
+        cv2.rectangle(frame, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y), (250, 0, 0), 2)
+
+
+
+
+
+
     def update_frame(self):
         # Read a frame from the webcam
         ret, frame = self.cap.read()
         if not ret:
             return
+
 
         # Flip the frame horizontally for a selfie-view display
         frame = cv2.flip(frame, 1)
@@ -86,13 +109,21 @@ class GestureCapturePage(QWidget):
                 )
 
                 # Check for gestures
+
                 if detect_peace_sign(hand_landmarks):
                     if self.gesture_timers['Peace Sign'] == 0:
                         self.gesture_timers['Peace Sign'] = time.time()
                     elif time.time() - self.gesture_timers['Peace Sign'] >= self.GESTURE_DETECTION_TIME:
                         gesture = 'Peace Sign Detected'
+                        if not self.google_opened:  # Only open Google once
+                            webbrowser.open("https://www.google.com")
+                            self.google_opened = True  # Set the flag to prevent reopening
                 else:
                     self.gesture_timers['Peace Sign'] = 0
+                    self.google_opened = False  # Reset the flag if gesture is no longer detected
+
+
+
 
                 if detect_thumbs_up(hand_landmarks):
                     if self.gesture_timers['Thumbs Up'] == 0:
@@ -134,6 +165,9 @@ class GestureCapturePage(QWidget):
                 else:
                     self.gesture_timers['L Sign'] = 0
 
+        # Draw the gesture box in the bottom-right corner
+        self.draw_box_on_frame(frame)
+
         # Display the gesture on the frame
         cv2.putText(frame, gesture, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
@@ -147,7 +181,7 @@ class GestureCapturePage(QWidget):
         # Convert the frame to QImage
         q_img = QImage(frame_rgb.data, width, height, bytes_per_line, QImage.Format_RGB888)
 
-        #q_img = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
+
 
         # Set the pixmap of the video_label to the new frame
         self.video_label.setPixmap(QPixmap.fromImage(q_img))
