@@ -104,7 +104,7 @@ def detect_fist(hand_landmarks):
     pinky_tip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP]
     pinky_pip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP]
 
-    thumb_curled = thumb_tip.y > thumb_ip.y
+    thumb_curled = thumb_tip.x > thumb_ip.x
     index_curled = index_tip.y > index_pip.y
     middle_curled = middle_tip.y > middle_pip.y
     ring_curled = ring_tip.y > ring_pip.y
