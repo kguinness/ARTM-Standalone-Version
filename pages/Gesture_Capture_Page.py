@@ -140,7 +140,14 @@ class GestureCapturePage(QWidget):
         # Convert the frame back to QImage to display in QLabel
         height, width, channel = frame.shape
         bytes_per_line = 3 * width
-        q_img = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
+
+        # Convert the frame from BGR to RGB
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Convert the frame to QImage
+        q_img = QImage(frame_rgb.data, width, height, bytes_per_line, QImage.Format_RGB888)
+
+        #q_img = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
 
         # Set the pixmap of the video_label to the new frame
         self.video_label.setPixmap(QPixmap.fromImage(q_img))
