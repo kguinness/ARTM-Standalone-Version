@@ -77,7 +77,7 @@ def detect_rock_and_roll_salute(hand_landmarks):
     pinky_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP]
     pinky_finger_pip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP]
 
-    thumb_extended = thumb_tip.y < thumb_ip.y
+    thumb_extended = thumb_tip.x < thumb_ip.x
     index_extended = index_finger_tip.y < index_finger_pip.y
     pinky_extended = pinky_finger_tip.y < pinky_finger_pip.y
 
@@ -111,3 +111,24 @@ def detect_fist(hand_landmarks):
     pinky_curled = pinky_tip.y > pinky_pip.y
 
     return thumb_curled and index_curled and middle_curled and ring_curled and pinky_curled
+
+# Function to detect the L Sign Gesture
+def detect_letter_l(hand_landmarks):
+    thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+    thumb_ip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_IP]
+
+    index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+    index_pip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP]
+
+    middle_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+    ring_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
+    pinky_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP]
+
+    thumb_extended = thumb_tip.x < thumb_ip.x
+    index_extended = index_tip.y < index_pip.y
+    #index_extended=index_tip.y<hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP].y
+    middle_curled = middle_finger_tip.y > hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_PIP].y
+    ring_curled = ring_finger_tip.y > hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_PIP].y
+    pinky_curled = pinky_finger_tip.y > hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP].y
+
+    return thumb_extended and index_extended and middle_curled and ring_curled and pinky_curled

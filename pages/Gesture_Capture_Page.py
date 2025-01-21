@@ -12,7 +12,8 @@ from gesture_utils import (
     detect_thumbs_up,
     detect_index_upwards,
     detect_rock_and_roll_salute,
-    detect_fist
+    detect_fist,
+    detect_letter_l
 )
 
 class GestureCapturePage(QWidget):
@@ -48,7 +49,8 @@ class GestureCapturePage(QWidget):
             'Thumbs Up': 0,
             'Index Up': 0,
             'Rock and Roll Salute': 0,
-            'Fist': 0
+            'Fist': 0,
+            'L Sign': 0
         }
 
         self.GESTURE_DETECTION_TIME = 1.5  # 1.5 seconds
@@ -123,6 +125,14 @@ class GestureCapturePage(QWidget):
                         gesture = 'Fist Gesture Detected'
                 else:
                     self.gesture_timers['Fist'] = 0
+
+                if detect_letter_l(hand_landmarks):
+                    if self.gesture_timers['L Sign'] == 0:
+                        self.gesture_timers['L Sign'] = time.time()
+                    elif time.time() - self.gesture_timers['L Sign'] >= self.GESTURE_DETECTION_TIME:
+                        gesture = 'L Sign Detected'
+                else:
+                    self.gesture_timers['L Sign'] = 0
 
         # Display the gesture on the frame
         cv2.putText(frame, gesture, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)

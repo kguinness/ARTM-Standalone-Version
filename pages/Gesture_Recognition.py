@@ -23,7 +23,8 @@ gesture_timers = {
     'Thumbs Up': 0,
     'Index Up': 0,
     'Rock and Roll Salute': 0,
-    'Fist': 0
+    'Fist': 0,
+    'L Sign': 0
 }
 
 GESTURE_DETECTION_TIME = 1.5
@@ -82,5 +83,7 @@ def detect_gesture(hand_landmarks):
         return 'Rock and Roll Salute'
     elif detect_fist(hand_landmarks):
         return 'Fist'
+    elif detect_letter_l(hand_landmarks):
+        return 'L Sign'
 
     return None
