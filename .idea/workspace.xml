@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 2.1.0">
-      <change afterPath="$PROJECT_DIR$/backend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/gestures.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/gesture_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/user_routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Gesture_Capture_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Gesture_Capture_Page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
