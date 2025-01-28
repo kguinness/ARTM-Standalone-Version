@@ -66,7 +66,42 @@ class GestureCapturePage(QWidget):
             'L Sign': 0
         }
 
+        self.gesture_flags = {
+            'Peace Sign': False,
+            'Thumbs Up': False,
+            'Index Up': False,
+            'Rock and Roll Salute': False,
+            'Fist': False,
+            'L Sign': False
+        }
+
         self.GESTURE_DETECTION_TIME = 1.0  # 1 second
+
+    # command to send detected gesture to flask backend
+    def send_gesture_to_backend(self, gesture):
+
+        try:
+            response = requests.post(
+                "http://127.0.0.1:5000/api/gesture/",
+                json={"gesture": gesture}
+            )
+            if response.status_code == 200:
+                action = response.json().get("action", {})
+                self.perform_action(action)
+            else:
+                print("Error from backend:", response.json().get("message"))
+        except Exception as e:
+            print("Error communicating with backend:", e)
+
+    # command to perform the action returned by the backend
+    def perform_action(self, action):
+        if action["action"] == "open_url":
+            webbrowser.open(action["data"])  # open the url in default browser
+        elif action["action"] == "notify":
+            print(action["data"])  # display notification
+        else:
+            print("No valid action for the gesture")
+
 
     # Insert Gesture Box in Bottom Right Corner
     def draw_box_on_frame(self, frame):
@@ -101,6 +136,7 @@ class GestureCapturePage(QWidget):
         hand_results = self.hands.process(rgb_frame)
 
         # Initialize gesture variable
+        gesture_detected = False  # flag to see if any gesture is detected
         gesture = 'No gesture detected'
 
         # Draw hand landmarks and detect gestures
@@ -118,66 +154,80 @@ class GestureCapturePage(QWidget):
                 # Check for gestures
 
                 if detect_peace_sign(hand_landmarks):
-                    gesture = 'Peace Sign Detected'
+                    gesture = "Peace Sign"
                     if self.gesture_timers['Peace Sign'] == 0:
                         self.gesture_timers['Peace Sign'] = time.time()
-                    #elif time.time() - self.gesture_timers['Peace Sign'] >= self.GESTURE_DETECTION_TIME:
-                    elif time.time() - self.gesture_timers['Peace Sign'] >= 3: #3 seconds
+                    elif time.time() - self.gesture_timers['Peace Sign'] >= 3 and not self.gesture_flags["Peace Sign"]: #3 seconds
                         gesture = 'Peace Sign Detected'
-                        if not self.google_opened:  # Only open Google once
-                            webbrowser.open("https://www.google.com")
-                            self.google_opened = True  # Set the flag to prevent reopening
+                        # send gesture to the backend
+                        self.send_gesture_to_backend("peace_sign")
+                        self.gesture_flags["Peace Sign"] = True
                 else:
                     self.gesture_timers['Peace Sign'] = 0
-                    self.google_opened = False  # Reset the flag if gesture is no longer detected
-
-
+                    self.gesture_flags["Peace Sign"] = False
+                    #self.google_opened = False  # Reset the flag if gesture is no longer detected
 
 
                 if detect_thumbs_up(hand_landmarks):
-                    gesture = 'Thumbs Up Detected'
+                    gesture = "Thumbs Up"
                     if self.gesture_timers['Thumbs Up'] == 0:
                         self.gesture_timers['Thumbs Up'] = time.time()
-                    elif time.time() - self.gesture_timers['Thumbs Up'] >= 3:
+                    elif time.time() - self.gesture_timers['Thumbs Up'] >= 3 and not self.gesture_flags["Thumbs Up"]:
                         gesture = 'Thumbs Up Detected'
+                        self.send_gesture_to_backend("thumbs_up")
+                        self.gesture_flags["Thumbs Up"] = True
                 else:
                     self.gesture_timers['Thumbs Up'] = 0
+                    self.gesture_flags["Thumbs Up"] = False
 
                 if detect_index_upwards(hand_landmarks):
-                    gesture = 'Index Up Detected'
+                    gesture = "Index Up"
                     if self.gesture_timers['Index Up'] == 0:
                         self.gesture_timers['Index Up'] = time.time()
-                    elif time.time() - self.gesture_timers['Index Up'] >= 3:
+                    elif time.time() - self.gesture_timers['Index Up'] >= 3 and not self.gesture_flags["Index Up"]:
                         gesture = 'Index Up Detected'
+                        self.send_gesture_to_backend("index_upwards")
+                        self.gesture_flags["Index Up"] = True
                 else:
                     self.gesture_timers['Index Up'] = 0
+                    self.gesture_flags["Index Up"] = False
 
                 if detect_rock_and_roll_salute(hand_landmarks):
-                    gesture = 'Rock and Roll Salute Detected'
+                    gesture = "Rock and Roll Salute"
                     if self.gesture_timers['Rock and Roll Salute'] == 0:
                         self.gesture_timers['Rock and Roll Salute'] = time.time()
-                    elif time.time() - self.gesture_timers['Rock and Roll Salute'] >= 3:
+                    elif time.time() - self.gesture_timers['Rock and Roll Salute'] >= 3 and not self.gesture_flags["Rock and Roll Salute"]:
                         gesture = 'Rock and Roll Salute Detected'
+                        self.send_gesture_to_backend("rock_and_roll_salute")
+                        self.gesture_flags["Rock and Roll Salute"] = True
                 else:
                     self.gesture_timers['Rock and Roll Salute'] = 0
+                    self.gesture_flags["Rock and Roll Salute"] = False
 
                 if detect_fist(hand_landmarks):
-                    gesture = 'Fist Gesture Detected'
+                    gesture = "Fist"
                     if self.gesture_timers['Fist'] == 0:
                         self.gesture_timers['Fist'] = time.time()
-                    elif time.time() - self.gesture_timers['Fist'] >= 3:
+                    elif time.time() - self.gesture_timers['Fist'] >= 3 and not self.gesture_flags["Fist"]:
                         gesture = 'Fist Gesture Detected'
+                        self.send_gesture_to_backend("fist")
+                        self.gesture_flags["Fist"] = True
                 else:
                     self.gesture_timers['Fist'] = 0
+                    self.gesture_flags["Fist"] = False
+
 
                 if detect_letter_l(hand_landmarks):
-                    gesture = 'L Sign Detected'
+                    gesture = "L Sign"
                     if self.gesture_timers['L Sign'] == 0:
                         self.gesture_timers['L Sign'] = time.time()
-                    elif time.time() - self.gesture_timers['L Sign'] >= 3:
+                    elif time.time() - self.gesture_timers['L Sign'] >= 3 and not self.gesture_flags["L Sign"]:
                         gesture = 'L Sign Detected'
+                        self.send_gesture_to_backend("l_sign")
+                        self.gesture_flags["L Sign"] = True
                 else:
                     self.gesture_timers['L Sign'] = 0
+                    self.gesture_flags['L Sign'] = False
 
 
         # Draw the gesture box in the bottom-right corner
@@ -205,7 +255,6 @@ class GestureCapturePage(QWidget):
             self.status_label.setText(f"Detected Gesture: {gesture}")
         else:
             self.status_label.setText("Gesture detection in progress...")
-
 
 
 
