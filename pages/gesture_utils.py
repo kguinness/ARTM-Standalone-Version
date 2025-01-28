@@ -44,7 +44,7 @@ def detect_thumbs_up(hand_landmarks):
 
 
 # Function to detect index upwards gesture
-def detect_index_upwards(hand_landmarks):
+def detect_index_up(hand_landmarks):
     index_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
     index_finger_pip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP]
 

@@ -13,7 +13,7 @@ from PyQt5.QtCore import QTimer
 from gesture_utils import (
     detect_peace_sign,
     detect_thumbs_up,
-    detect_index_upwards,
+    detect_index_up,
     detect_rock_and_roll_salute,
     detect_fist,
     detect_letter_l
@@ -25,8 +25,6 @@ class GestureCapturePage(QWidget):
 
         # Set up the page layout
         self.layout = QVBoxLayout()
-        #self.layout.addWidget(self.video_label)
-        #self.video_label("Gesture detection in progress...")
         self.setLayout(self.layout)
         self.google_opened = False  # Flag to track if Google has been opened
 
@@ -34,6 +32,9 @@ class GestureCapturePage(QWidget):
         # Qlabel for gesture detection status
         self.status_label = QLabel("Gesture detection in progress...")
         self.layout.addWidget(self.status_label)
+
+        self.countdown_label = QLabel("")
+        self.layout.addWidget(self.countdown_label)
 
 
         # Create a label to display the video feed
@@ -73,6 +74,15 @@ class GestureCapturePage(QWidget):
             'Rock and Roll Salute': False,
             'Fist': False,
             'L Sign': False
+        }
+
+        self.gesture_map = {
+            "Peace Sign": detect_peace_sign,
+            "Thumbs Up": detect_thumbs_up,
+            "Index Up": detect_index_up,
+            "Rock and Roll Salute": detect_rock_and_roll_salute,
+            "Fist": detect_fist,
+            "L Sign": detect_letter_l,
         }
 
         self.GESTURE_DETECTION_TIME = 1.0  # 1 second
@@ -136,8 +146,8 @@ class GestureCapturePage(QWidget):
         hand_results = self.hands.process(rgb_frame)
 
         # Initialize gesture variable
-        gesture_detected = False  # flag to see if any gesture is detected
         gesture = 'No gesture detected'
+        countdown_time = ""
 
         # Draw hand landmarks and detect gestures
         if hand_results.multi_hand_landmarks:
@@ -152,11 +162,32 @@ class GestureCapturePage(QWidget):
                 )
 
                 # Check for gestures
+                for gesture_name, detect_function in self.gesture_map.items():
+                    if detect_function(hand_landmarks):
+                        gesture = gesture_name
+                        if self.gesture_timers[gesture_name] == 0:
+                            # Start gesture timer
+                            self.gesture_timers[gesture_name] = time.time()
+                        elif (
+                            time.time() - self.gesture_timers[gesture_name] >= 3
+                            and not self.gesture_flags[gesture_name]
+                        ):
+                            self.send_gesture_to_backend(gesture_name.lower().replace(" ", "_"))
+                            self.gesture_flags[gesture_name] = True
+                        else:
+                            elapsed_time = time.time() - self.gesture_timers[gesture_name]
+                            countdown_time = f"Action in: {3 - int(elapsed_time)}s"
+                    else:
+                        self.gesture_timers[gesture_name] = 0
+                        self.gesture_flags[gesture_name] = False
 
+
+                """
                 if detect_peace_sign(hand_landmarks):
                     gesture = "Peace Sign"
                     if self.gesture_timers['Peace Sign'] == 0:
                         self.gesture_timers['Peace Sign'] = time.time()
+                     
                     elif time.time() - self.gesture_timers['Peace Sign'] >= 3 and not self.gesture_flags["Peace Sign"]: #3 seconds
                         gesture = 'Peace Sign Detected'
                         # send gesture to the backend
@@ -228,7 +259,7 @@ class GestureCapturePage(QWidget):
                 else:
                     self.gesture_timers['L Sign'] = 0
                     self.gesture_flags['L Sign'] = False
-
+                """
 
         # Draw the gesture box in the bottom-right corner
         self.draw_box_on_frame(frame)
@@ -249,6 +280,11 @@ class GestureCapturePage(QWidget):
 
         # Set the pixmap of the video_label to the new frame
         self.video_label.setPixmap(QPixmap.fromImage(q_img))
+
+        if countdown_time:
+            self.countdown_label.setText(countdown_time)
+        else:
+            self.countdown_label.setText("")
 
         # Update the status lebel with the detected gesture
         if gesture != 'No gesture detected':

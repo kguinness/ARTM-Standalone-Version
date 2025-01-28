@@ -23,7 +23,7 @@ def perform_action():
     gesture_actions = {
         "peace_sign": {"action": "open_url", "data": "https://www.google.com"},
         "thumbs_up": {"action": "notify", "data": "thumbs up!"},
-        "index_upwards": {"action": "notify", "data": "index finger up!"},
+        "index_up": {"action": "notify", "data": "index finger up!"},
         "rock_and_roll_salute": {"action": "notify", "data": "rock and roll!"},
         "fist": {"action": "notify", "data": "fists up!"},
         "l_sign": {"action": "notify", "data": "L Sign!"}
