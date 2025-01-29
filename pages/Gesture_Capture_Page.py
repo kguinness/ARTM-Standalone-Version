@@ -6,9 +6,9 @@ import mediapipe as mp
 import requests
 import webbrowser
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication, QSizePolicy
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, Qt
 
 from gesture_utils import (
     detect_peace_sign,
@@ -28,19 +28,19 @@ class GestureCapturePage(QWidget):
         self.setLayout(self.layout)
         self.google_opened = False  # Flag to track if Google has been opened
 
+        # Create and configure the QLabel for video feed
+        self.video_label = QLabel()
+        self.video_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.video_label.setAlignment(Qt.AlignCenter)
+        self.video_label.setScaledContents(True)  # Enable dynamic resizing
+        self.layout.addWidget(self.video_label)
 
-        # Qlabel for gesture detection status
+        # QLabel for gesture detection status
         self.status_label = QLabel("Gesture detection in progress...")
         self.layout.addWidget(self.status_label)
 
         self.countdown_label = QLabel("")
         self.layout.addWidget(self.countdown_label)
-
-
-        # Create a label to display the video feed
-        self.video_label = QLabel()
-        self.layout.addWidget(self.video_label)
-
 
         # Initialize video capture
         self.cap = cv2.VideoCapture(0)
@@ -48,11 +48,15 @@ class GestureCapturePage(QWidget):
         # Set up a QTimer to update the video feed
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_frame)
-        self.timer.start(30)
+        self.timer.start(30)  # Check if 30ms is too frequent
 
         # Initialize MediaPipe Hands class
         self.mp_hands = mp.solutions.hands
-        self.hands = self.mp_hands.Hands()
+        self.hands = self.mp_hands.Hands(
+            max_num_hands=1,  # Detect only one hand
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5
+        )
 
         # Initialize MediaPipe drawing utils
         self.mp_drawing = mp.solutions.drawing_utils
@@ -86,6 +90,7 @@ class GestureCapturePage(QWidget):
         }
 
         self.GESTURE_DETECTION_TIME = 1.0  # 1 second
+
 
     # command to send detected gesture to flask backend
     def send_gesture_to_backend(self, gesture):
@@ -128,19 +133,32 @@ class GestureCapturePage(QWidget):
         # Draw the rectangle
         cv2.rectangle(frame, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y), (250, 0, 0), 2)
 
-
     def update_frame(self):
         # Read a frame from the webcam
         ret, frame = self.cap.read()
         if not ret:
             return
 
-
         # Flip the frame horizontally for a selfie-view display
         frame = cv2.flip(frame, 1)
 
-        # Convert the image from BGR to RGB for MediaPipe
+        # Convert the frame from BGR to RGB
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Convert the frame to QImage
+        height, width, channel = rgb_frame.shape
+        bytes_per_line = 3 * width
+        q_img = QImage(rgb_frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
+
+        # Resize the QPixmap to fit the QLabel while maintaining aspect ratio
+        pixmap = QPixmap.fromImage(q_img).scaled(
+            self.video_label.size(),  # Use QLabel's current size
+            Qt.KeepAspectRatio,  # Maintain aspect ratio
+            Qt.SmoothTransformation  # Smooth scaling for better quality
+        )
+
+        # Set the QLabel pixmap
+        self.video_label.setPixmap(pixmap)
 
         # Process the frame for hand tracking
         hand_results = self.hands.process(rgb_frame)
@@ -292,7 +310,10 @@ class GestureCapturePage(QWidget):
         else:
             self.status_label.setText("Gesture detection in progress...")
 
-
+    def resizeEvent(self, event):
+        """Handle window resizing and update the video feed."""
+        self.update_frame()  # Force a frame update when the window is resized
+        super().resizeEvent(event)
 
     def closeEvent(self, event):
         # Release the video capture when closing the page
