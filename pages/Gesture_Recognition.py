@@ -3,9 +3,10 @@ import mediapipe as mp
 from gesture_utils import (
     detect_peace_sign,
     detect_thumbs_up,
-    detect_index_upwards,
+    detect_index_up,
     detect_rock_and_roll_salute,
     detect_fist,
+    detect_letter_l,
 )
 
 # Initialize MediaPipe Pose and Hands classes
@@ -77,7 +78,7 @@ def detect_gesture(hand_landmarks):
         return 'Peace Sign'
     elif detect_thumbs_up(hand_landmarks):
         return 'Thumbs Up'
-    elif detect_index_upwards(hand_landmarks):
+    elif detect_index_up(hand_landmarks):
         return 'Index Up'
     elif detect_rock_and_roll_salute(hand_landmarks):
         return 'Rock and Roll Salute'
