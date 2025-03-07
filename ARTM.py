@@ -27,22 +27,12 @@ class BasicFrontendApp(QtWidgets.QMainWindow):
         main_layout = QVBoxLayout(central_widget)
         central_widget.setLayout(main_layout)
 
-        top_layout = QHBoxLayout()
-
         # Add app name label at the top
         self.app_name_label = QPushButton("Basic Frontend App")
         self.app_name_label.setStyleSheet("text-align: center;")
         self.app_name_label.clicked.connect(self.show_home_page)
-        #main_layout.addWidget(self.app_name_label, alignment=QtCore.Qt.AlignTop | QtCore.Qt.AlignHCenter)
+        main_layout.addWidget(self.app_name_label, alignment=QtCore.Qt.AlignTop | QtCore.Qt.AlignHCenter)
 
-        self.button_login =QPushButton("Login")
-        self.button_login.clicked.connect(self.open_login_page)
-
-        top_layout.addWidget(self.app_name_label, alignment=QtCore.Qt.AlignLeft)
-        top_layout.addStretch()
-        top_layout.addWidget(self.button_login, alignment=QtCore.Qt.AlignRight)
-
-        main_layout.addLayout(top_layout)
 
         self.user_label = QtWidgets.QLabel("Not Logged In")
         self.user_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -74,9 +64,9 @@ class BasicFrontendApp(QtWidgets.QMainWindow):
         button_app_settings.clicked.connect(lambda: self.show_page(3))
         sidebar_layout.addWidget(button_app_settings)
 
-        #button_login = QPushButton("Login")
-        #button_login.clicked.connect(self.open_login_page)
-        #sidebar_layout.addWidget(button_login)
+        button_login = QPushButton("Login")
+        button_login.clicked.connect(self.open_login_page)
+        sidebar_layout.addWidget(button_login)
 
         button_register = QPushButton("Register")
         button_register.clicked.connect(self.open_register_page)
