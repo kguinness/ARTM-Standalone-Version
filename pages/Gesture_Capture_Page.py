@@ -97,7 +97,7 @@ class GestureCapturePage(QWidget):
 
         try:
             response = requests.post(
-                "http://127.0.0.1:5000/api/gesture/",
+                "http://127.0.0.1:5000/api/gesture",
                 json={"gesture": gesture}
             )
             if response.status_code == 200:
