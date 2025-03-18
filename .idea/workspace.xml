@@ -5,20 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 2.1.0">
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/style.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ARTM.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ARTM.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/gesture_capture/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/home/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/home/home_page_view.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_creation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page_view.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_selection/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile _selection_page_view.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_view/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page_view.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/settings/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/profiles.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARTM Flowchart-Whiteboard.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Not Code/ARTM Flowchart-Whiteboard.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARTM Updated Flowchart-Whiteboard.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Not Code/ARTM Updated Flowchart-Whiteboard.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARTM.py" beforeDir="false" afterPath="$PROJECT_DIR$/ARTM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Not Code/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Home_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Home_Page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Login_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Login_Page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Profile_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Profile_Page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Register_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Register_Page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/gesture_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/gesture_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARTM.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Not Code/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/gestures.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/gesture_routes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/user_routes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/site.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Gesture_Capture_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Gesture_Recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/gesture_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Home_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Login_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Profile_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Register_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Settings_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/settings_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/gesture_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/gesture_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.qss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style.qss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +87,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "Python.ARTM .executor": "Run",
     "Python.ARTM Backend.executor": "Run",
     "Python.ARTM Frontend.executor": "Run",
     "Python.ARTM.executor": "Run",
@@ -80,13 +105,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\Not Code" />
-      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\backend" />
-      <recent name="C:\Users\talar\PycharmProjects\ARTM" />
+      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\src\utils" />
+      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\src" />
+      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\src\pages\settings" />
+      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\src\pages\gesture_capture" />
+      <recent name="C:\Users\kmcgu\PycharmProjects\ARTM\src\pages\home" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ARTM Frontend">
-    <configuration name="ARTM Frontend" type="PythonConfigurationType" factoryName="Python">
+  <component name="RunManager">
+    <configuration name="ARTM " type="PythonConfigurationType" factoryName="Python">
       <module name="ARTM" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,7 +127,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -109,33 +136,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ATRM Backend" type="PythonConfigurationType" factoryName="Python">
-      <module name="ARTM" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="ARTM" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/app.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.ATRM Backend" />
-      <item itemvalue="Python.ARTM Frontend" />
-    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -217,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733431436526</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="version 2.1.0">
+      <option name="closed" value="true" />
+      <created>1742321296317</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742321296317</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -249,7 +257,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/backend/app.py</url>
+          <url>file://$PROJECT_DIR$/src/app.py</url>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
