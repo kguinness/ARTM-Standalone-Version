@@ -1,10 +1,14 @@
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'pages'))
-import requests
 
+import requests
 from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtWidgets import QSystemTrayIcon, QMenu, QAction, QApplication, QMessageBox, QVBoxLayout, QStackedWidget, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import (
+    QSystemTrayIcon, QMenu, QAction, QApplication, QMessageBox,
+    QVBoxLayout, QStackedWidget, QPushButton, QHBoxLayout, QWidget, QLabel, QFrame
+)
+
 from pages.Home_Page import HomePage
 from pages.Gesture_Capture_Page import GestureCapturePage
 from pages.Profile_Page import ProfilePage
@@ -15,118 +19,120 @@ from pages.Register_Page import RegisterPage
 class BasicFrontendApp(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.user_id = None
+        self.username = None  # We'll store username here to pass to Profile page
+        self.setWindowTitle("ARTM")
+        self.setGeometry(300, 300, 900, 600)
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('Basic Frontend App')
-        self.setGeometry(300, 300, 800, 600)
-
-        # Create central widget with a layout
-        central_widget = QtWidgets.QWidget()
+        # Central widget + layout
+        central_widget = QWidget()
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
         central_widget.setLayout(main_layout)
 
-        top_layout = QHBoxLayout()
+        # ------------------- TOP BAR -------------------
+        self.top_bar = QFrame()
+        self.top_bar.setObjectName("TopBar")
+        top_bar_layout = QHBoxLayout(self.top_bar)
+        top_bar_layout.setContentsMargins(15, 5, 15, 5)
+        top_bar_layout.setSpacing(10)
 
-        # Add app name label at the top
-        self.app_name_label = QPushButton("Basic Frontend App")
-        self.app_name_label.setStyleSheet("text-align: center;")
-        self.app_name_label.clicked.connect(self.show_home_page)
-        #main_layout.addWidget(self.app_name_label, alignment=QtCore.Qt.AlignTop | QtCore.Qt.AlignHCenter)
+        # Left stretch, ARTM centered, right stretch
+        top_bar_layout.addStretch()
+        self.title_button = QPushButton("ARTM")
+        self.title_button.setObjectName("TitleButton")
+        self.title_button.clicked.connect(self.show_home_page)
+        top_bar_layout.addWidget(self.title_button, alignment=QtCore.Qt.AlignCenter)
+        top_bar_layout.addStretch()
 
-        self.button_login = QPushButton("Login")
-        self.button_login.clicked.connect(self.open_login_page)
+        main_layout.addWidget(self.top_bar)
 
-        top_layout.addWidget(self.app_name_label, alignment=QtCore.Qt.AlignLeft)
-        top_layout.addStretch()
-        top_layout.addWidget(self.button_login, alignment=QtCore.Qt.AlignRight)
+        # ------------------- MAIN CONTENT (sidebar + pages) -------------------
+        content_frame = QFrame()
+        content_layout = QHBoxLayout(content_frame)
+        content_layout.setContentsMargins(0, 0, 0, 0)
+        content_layout.setSpacing(0)
 
-        main_layout.addLayout(top_layout)
+        # Sidebar
+        self.sidebar = QFrame()
+        self.sidebar.setObjectName("Sidebar")
+        sidebar_layout = QVBoxLayout(self.sidebar)
+        sidebar_layout.setContentsMargins(20, 20, 20, 20)
+        sidebar_layout.setSpacing(15)
 
-        self.user_label = QtWidgets.QLabel("Not Logged In")
-        self.user_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.user_label.setStyleSheet("font-size: 14px; font-weight: bold; color: blue;")
-        main_layout.addWidget(self.user_label, alignment=QtCore.Qt.AlignTop | QtCore.Qt.AlignHCenter)
+        # Buttons for pages
+        sidebar_buttons = [
+            ("Gesture Capture", 1),
+            ("Profile", 2),
+            ("Settings", 3)
+        ]
+        for name, idx in sidebar_buttons:
+            btn = QPushButton(name)
+            btn.setObjectName("SidebarButton")
+            btn.clicked.connect(lambda _, i=idx: self.show_page(i))
+            sidebar_layout.addWidget(btn)
 
-        # Create main content layout
-        content_layout = QHBoxLayout()
-        main_layout.addLayout(content_layout)
+        sidebar_layout.addStretch()
 
-        # Create sidebar layout
-        sidebar_layout = QVBoxLayout()
-        content_layout.addLayout(sidebar_layout)
+        # Logout button
+        logout_button = QPushButton("Logout")
+        logout_button.setObjectName("LogoutButton")
+        logout_button.clicked.connect(self.logout)
+        sidebar_layout.addWidget(logout_button)
 
-        # Create stacked widget for pages
+        content_layout.addWidget(self.sidebar, stretch=1)
+
+        # Stacked widget for pages
         self.stacked_widget = QStackedWidget()
-        content_layout.addWidget(self.stacked_widget)
+        content_layout.addWidget(self.stacked_widget, stretch=3)
+        main_layout.addWidget(content_frame)
 
-        # Add buttons to sidebar for switching pages
-        button_gesture_capture = QPushButton("Gesture Capture")
-        button_gesture_capture.clicked.connect(lambda: self.show_page(1))
-        sidebar_layout.addWidget(button_gesture_capture)
-
-        button_profile = QPushButton("Profile")
-        button_profile.clicked.connect(lambda: self.show_page(2))
-        sidebar_layout.addWidget(button_profile)
-
-        button_app_settings = QPushButton("App Settings")
-        button_app_settings.clicked.connect(lambda: self.show_page(3))
-        sidebar_layout.addWidget(button_app_settings)
-
-        #button_login = QPushButton("Login")
-        #button_login.clicked.connect(self.open_login_page)
-        #sidebar_layout.addWidget(button_login)
-
-        button_register = QPushButton("Register")
-        button_register.clicked.connect(self.open_register_page)
-        sidebar_layout.addWidget(button_register)
-
-        # Add pages to stacked widget
+        # ------------------- ADD PAGES TO STACK -------------------
         self.home_page = HomePage()
-        self.stacked_widget.addWidget(self.home_page)
+        self.stacked_widget.addWidget(self.home_page)            # index 0
 
         self.gesture_capture_page = GestureCapturePage()
-        self.stacked_widget.addWidget(self.gesture_capture_page)
+        self.stacked_widget.addWidget(self.gesture_capture_page) # index 1
 
         self.profile_page = ProfilePage()
-        self.stacked_widget.addWidget(self.profile_page)
+        self.stacked_widget.addWidget(self.profile_page)         # index 2
 
         self.app_settings_page = SettingsPage()
-        self.stacked_widget.addWidget(self.app_settings_page)
+        self.stacked_widget.addWidget(self.app_settings_page)    # index 3
 
+        # Login page
         self.login_page = LoginPage()
         self.login_page.login_success.connect(self.handle_login_success)
-        self.stacked_widget.addWidget(self.login_page)
+        self.login_page.register_requested.connect(self.open_register_page)
+        self.stacked_widget.addWidget(self.login_page)           # index 4
 
+        # Register page
         self.register_page = RegisterPage()
-        self.stacked_widget.addWidget(self.register_page)
+        self.register_page.back_to_login.connect(self.open_login_page)
+        self.stacked_widget.addWidget(self.register_page)        # index 5
 
-        # Set the tray icon
+        # ------------------- SYSTEM TRAY -------------------
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QtGui.QIcon("icon.png"))  # Add your application icon here
-
-        # Create the menu for tray icon
+        self.tray_icon.setIcon(QtGui.QIcon("icon.png"))
         tray_menu = QMenu()
         open_action = QAction("Open", self)
         quit_action = QAction("Quit", self)
-
         open_action.triggered.connect(self.show)
         quit_action.triggered.connect(self.quit_app)
-
         tray_menu.addAction(open_action)
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
-
-        # Show the system tray icon
         self.tray_icon.show()
-
-        # Trigger when the tray icon is clicked
         self.tray_icon.activated.connect(self.on_tray_icon_activated)
 
-        # Show home page on start
-        self.show_home_page()
+        # ------------------- HIDE TOP BAR & SIDEBAR UNTIL LOGIN -------------------
+        self.top_bar.setVisible(False)
+        self.sidebar.setVisible(False)
+        self.show_page(4)  # Show the login page at startup
 
+    # ------------------- EVENTS & METHODS -------------------
     def closeEvent(self, event):
         event.ignore()
         self.hide()
@@ -146,54 +152,40 @@ class BasicFrontendApp(QtWidgets.QMainWindow):
         self.stacked_widget.setCurrentIndex(index)
 
     def show_home_page(self):
-        self.stacked_widget.setCurrentIndex(0)
+        self.show_page(0)
 
     def open_login_page(self):
-        self.stacked_widget.setCurrentWidget(self.login_page)
+        self.show_page(4)
 
-    # Store logged-in user ID and updates login text
+    def open_register_page(self):
+        self.show_page(5)
+
     def handle_login_success(self, user_id):
-        #Store logged-in user ID
-
         self.user_id = user_id
-
-        # Fetch user details from backend
         response = requests.get(f"http://127.0.0.1:5000/users/profile/{user_id}")
-        print(f"[DEBUG] API Response Code: {response.status_code}")
-
         if response.status_code == 200:
             user_data = response.json()
-            username = user_data.get("username", "Unknown User")  # Store username
-
-            #Updates user_label to logged in user
-            QtCore.QMetaObject.invokeMethod(
-                self.user_label,
-                "setText",
-                QtCore.Qt.QueuedConnection,
-                QtCore.Q_ARG(str, f"logged in as: {username}")
-            )
-
+            self.username = user_data.get("username", "Unknown User")
             QMessageBox.information(self, "Success", "Login successful!")
-            self.show_profile_page()
         else:
             QtWidgets.QMessageBox.warning(self, "Error", "Failed to fetch user data")
 
-    def show_profile_page(self):
-        if self.user_id:
-            self.profile_page.load_profile(self.user_id)
-            self.show_page(2)
-        else:
-            QMessageBox.warning(self, "Error", "You must log in to access profile page")
+        # Show top bar & sidebar, go to home page
+        self.top_bar.setVisible(True)
+        self.sidebar.setVisible(True)
 
-    def open_register_page(self):
-        self.stacked_widget.setCurrentWidget(self.register_page)
+        # Pass username to the Profile page
+        self.profile_page.load_profile(self.user_id, self.username)
+
+        self.show_home_page()
+
+    def logout(self):
+        """ Clears the session and returns to the login page. """
+        self.user_id = None
+        self.username = None
+        self.top_bar.setVisible(False)
+        self.sidebar.setVisible(False)
+        self.show_page(4)
 
     def quit_app(self):
         QApplication.quit()
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    QApplication.setQuitOnLastWindowClosed(False)
-    window = BasicFrontendApp()
-    window.show()
-    sys.exit(app.exec_())

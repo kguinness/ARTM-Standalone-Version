@@ -8,6 +8,37 @@ hands = mp_hands.Hands()
 # Initialize MediaPipe drawing utils
 mp_drawing = mp.solutions.drawing_utils
 
+# -------------------------------------------------------------------
+# PREMADE GESTURES & UTILITY FUNCTIONS
+# -------------------------------------------------------------------
+
+# List of premade gestures used throughout the application.
+PREMADE_GESTURES = [
+    "Fist",
+    "Index Up",
+    "L",
+    "Peace Sign",
+    "Rock & Roll",
+    "Thumbs Up"
+]
+
+def get_premade_gestures():
+    """
+    Returns the list of premade gestures.
+    """
+    return PREMADE_GESTURES
+
+def is_valid_gesture(gesture):
+    """
+    Checks if the given gesture is valid.
+    A gesture is valid if it is in PREMADE_GESTURES or if it is the special "Capture Gesture".
+    """
+    return gesture in PREMADE_GESTURES or gesture == "Capture Gesture"
+
+
+# -------------------------------------------------------------------
+# GESTURE DETECTION FUNCTIONS
+# -------------------------------------------------------------------
 
 # Function to detect peace sign gesture
 def detect_peace_sign(hand_landmarks):
@@ -112,6 +143,7 @@ def detect_fist(hand_landmarks):
 
     return thumb_curled and index_curled and middle_curled and ring_curled and pinky_curled
 
+
 # Function to detect the L Sign Gesture
 def detect_letter_l(hand_landmarks):
     thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
@@ -126,7 +158,6 @@ def detect_letter_l(hand_landmarks):
 
     thumb_extended = thumb_tip.x < thumb_ip.x
     index_extended = index_tip.y < index_pip.y
-    #index_extended=index_tip.y<hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP].y
     middle_curled = middle_finger_tip.y > hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_PIP].y
     ring_curled = ring_finger_tip.y > hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_PIP].y
     pinky_curled = pinky_finger_tip.y > hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP].y

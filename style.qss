@@ -1,0 +1,143 @@
+/* style.qss */
+
+/* Overall window background */
+QMainWindow {
+    background-color: #000000;
+}
+
+/* Top bar */
+#TopBar {
+    background-color: #4C4C4C;
+}
+#TitleButton {
+    color: #FF69B4;
+    font-size: 24px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    width: 200px;
+}
+#TitleButton:hover {
+    color: #FFA8D8;
+}
+
+/* Sidebar */
+#Sidebar {
+    background-color: #222222;
+    border-right: 2px solid #FF69B4;
+}
+#SidebarButton {
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    border: none;
+    padding: 6px;
+    text-align: left;
+}
+#SidebarButton:hover {
+    background-color: #FF69B4;
+    color: #000000;
+}
+#LogoutButton {
+    background-color: #FF69B4;
+    color: #000000;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px;
+}
+#LogoutButton:hover {
+    background-color: #FFA8D8;
+    color: #000000;
+}
+
+/* --- LOGIN PAGE --- */
+#LoginTitle {
+    color: #FF69B4;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#LoginField {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #FF69B4;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+#LoginButton {
+    background-color: #FF69B4;
+    color: #000;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+    width: 320px;
+}
+#LoginButton:hover {
+    background-color: #FFA8D8;
+    color: #000;
+}
+#OrLabel {
+    color: #fff;
+    margin-right: 5px;
+}
+#SignupLink {
+    color: #FF69B4;
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    margin-left: 5px;
+}
+#SignupLink:hover {
+    color: #FFA8D8;
+    text-decoration: underline;
+}
+
+/* --- REGISTER PAGE --- */
+#RegisterTitle {
+    color: #FF69B4;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#RegisterField {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #FF69B4;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+}
+#RegisterButton {
+    background-color: #FF69B4;
+    color: #000;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 6px;
+    width: 320px;
+}
+#RegisterButton:hover {
+    background-color: #FFA8D8;
+    color: #000;
+}
+#BackToLoginLink {
+    color: #FF69B4;
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    margin-left: 5px;
+}
+#BackToLoginLink:hover {
+    color: #FFA8D8;
+    text-decoration: underline;
+}
+
+/* --- PROFILE PAGE --- */
+#ProfileLabel {
+    color: white;
+    font-size: 16px;
+}
