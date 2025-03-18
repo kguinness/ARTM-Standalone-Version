@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QVBoxLayout, QHBoxLayout, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from pages.profile_selection.profile_selection_page import ProfileSelectionPage
@@ -10,41 +10,46 @@ from pages.gesture_capture.gesture_capture_page import GestureCapturePage
 from pages.settings.settings_page import SettingsPage
 from config.config import ICON_PATH
 
+
 class BasicFrontendApp(QMainWindow):
     def __init__(self):
         super(BasicFrontendApp, self).__init__()
-        self.current_profile = None  # Stores the selected profile name
+        self.current_profile = None
         self.initUI()
 
     def initUI(self):
-        # ------------------- Login Widget -------------------
-        self.login_widget = QStackedWidget()
+        # Create the login stack (holds Profile Selection and Profile Creation pages)
+        self.login_stack = QStackedWidget()
         self.profile_selection_page = ProfileSelectionPage(self)
         self.profile_selection_page.profileSelected.connect(self.on_profile_selected)
-        self.login_widget.addWidget(self.profile_selection_page)
+        self.login_stack.addWidget(self.profile_selection_page)  # index 0: selection
 
-        # ------------------- Main Widget -------------------
+        self.profile_creation_page = ProfileCreationPage(self)
+        self.profile_creation_page.profileCreated.connect(self.on_profile_created)
+        self.profile_creation_page.backRequested.connect(self.on_profile_creation_back)
+        self.login_stack.addWidget(self.profile_creation_page)  # index 1: creation
+
+        # Create the main widget (with top bar, side bar, and content stack)
         self.main_widget = QWidget()
         main_layout = QVBoxLayout(self.main_widget)
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
 
-        # Top Bar with background and pink title
+        # Top Bar
         self.top_bar = QWidget()
         self.top_bar.setObjectName("TopBar")
-        # Set background for the top bar:
         self.top_bar.setStyleSheet("background-color: #4C4C4C;")
-        top_bar_layout = QHBoxLayout(self.top_bar)
-        top_bar_layout.setContentsMargins(10, 10, 10, 10)
-        top_bar_layout.setSpacing(10)
-        top_bar_layout.addStretch()
+        top_layout = QHBoxLayout(self.top_bar)
+        top_layout.setContentsMargins(10, 10, 10, 10)
+        top_layout.setSpacing(10)
+        top_layout.addStretch()
         self.title_button = QPushButton("ARTM")
         self.title_button.setObjectName("TitleButton")
-        # Set the title text color to pink:
-        self.title_button.setStyleSheet("color: #FF69B4; background: transparent; border: none; font-size: 24px; font-weight: bold;")
+        self.title_button.setStyleSheet(
+            "color: #FF69B4; background: transparent; border: none; font-size: 24px; font-weight: bold;")
         self.title_button.clicked.connect(self.show_home)
-        top_bar_layout.addWidget(self.title_button, alignment=Qt.AlignCenter)
-        top_bar_layout.addStretch()
+        top_layout.addWidget(self.title_button, alignment=Qt.AlignCenter)
+        top_layout.addStretch()
         main_layout.addWidget(self.top_bar)
 
         # Content Area: Side Bar + Content Stack
@@ -53,13 +58,12 @@ class BasicFrontendApp(QMainWindow):
         content_layout.setContentsMargins(0, 0, 0, 0)
         content_layout.setSpacing(0)
 
-        # Side Bar with background color
+        # Side Bar with navigation buttons
         self.side_bar = QWidget()
         self.side_bar.setObjectName("Sidebar")
         self.side_bar.setStyleSheet("background-color: #222222;")
         side_layout = QVBoxLayout(self.side_bar)
         side_layout.setAlignment(Qt.AlignTop)
-        # Navigation buttons (except Home, which is accessed via the title)
         profile_btn = QPushButton("Profile")
         profile_btn.setObjectName("SidebarButton")
         profile_btn.clicked.connect(lambda: self.content_stack.setCurrentWidget(self.profile_page))
@@ -74,42 +78,58 @@ class BasicFrontendApp(QMainWindow):
         side_layout.addWidget(settings_btn)
         content_layout.addWidget(self.side_bar, stretch=1)
 
-        # Main Content Stack
+        # Content Stack holds the main pages
         self.content_stack = QStackedWidget()
         self.home_page = HomePage(self)
         self.profile_page = ProfilePage(self)
         self.gesture_capture_page = GestureCapturePage(self)
         self.settings_page = SettingsPage(self)
-        self.content_stack.addWidget(self.home_page)            # index 0: Home
-        self.content_stack.addWidget(self.profile_page)           # index 1: Profile
-        self.content_stack.addWidget(self.gesture_capture_page)   # index 2: Gesture Capture
-        self.content_stack.addWidget(self.settings_page)          # index 3: Settings
+        self.content_stack.addWidget(self.home_page)  # index 0: Home
+        self.content_stack.addWidget(self.profile_page)  # index 1: Profile view
+        self.content_stack.addWidget(self.gesture_capture_page)  # index 2: Gesture Capture
+        self.content_stack.addWidget(self.settings_page)  # index 3: Settings
         content_layout.addWidget(self.content_stack, stretch=4)
         main_layout.addWidget(content_widget)
 
-        # Initially show the login widget
-        self.setCentralWidget(self.login_widget)
+        # Overall stack: login stack vs. main widget
+        self.overall_stack = QStackedWidget()
+        self.overall_stack.addWidget(self.login_stack)  # index 0: login area (profile selection/creation)
+        self.overall_stack.addWidget(self.main_widget)  # index 1: main app
+        self.setCentralWidget(self.overall_stack)
+        self.setCurrentPage("login")
+
         self.setWindowTitle("ARTM")
         self.setWindowIcon(QIcon(ICON_PATH))
         self.resize(900, 600)
 
+    def setCurrentPage(self, page_name):
+        mapping = {"login": 0, "main": 1}
+        if page_name in mapping:
+            self.overall_stack.setCurrentIndex(mapping[page_name])
+
     def on_profile_selected(self, profile_name):
-        # Called when a profile is selected from the login widget.
         self.current_profile = profile_name
-        # Update the profile view and home pages.
         self.profile_page.load_profile(profile_name)
         self.home_page.set_profile(profile_name)
-        # Switch central widget to main_widget (which has the navigation bars).
-        self.setCentralWidget(self.main_widget)
-        # Show Home page by default.
+        self.setCurrentPage("main")
         self.content_stack.setCurrentWidget(self.home_page)
+
+    def on_profile_created(self):
+        # Reload profiles and switch back to profile selection in the login stack.
+        self.profile_selection_page.load_profiles()
+        self.login_stack.setCurrentIndex(0)
+        self.setCurrentPage("login")
+
+    def on_profile_creation_back(self):
+        # Switch the login stack back to profile selection.
+        self.login_stack.setCurrentIndex(0)
+        self.setCurrentPage("login")
 
     def show_home(self):
-        # Called when the title button is clicked.
         self.content_stack.setCurrentWidget(self.home_page)
 
+
 if __name__ == "__main__":
-    from PyQt5.QtWidgets import QApplication
     app = QApplication(sys.argv)
     window = BasicFrontendApp()
     window.show()

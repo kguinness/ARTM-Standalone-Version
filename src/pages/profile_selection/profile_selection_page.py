@@ -6,8 +6,8 @@ from PyQt5.QtCore import Qt, pyqtSignal
 
 PROFILE_FILE = "profiles.json"
 
+
 class ProfileSelectionPage(QWidget):
-    # Signal to notify that a profile was selected.
     profileSelected = pyqtSignal(str)
 
     def __init__(self, parent=None):
@@ -15,22 +15,18 @@ class ProfileSelectionPage(QWidget):
         self.initUI()
 
     def initUI(self):
-        # Create a vertical layout for the page.
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.AlignCenter)
         self.setLayout(self.layout)
 
-        # Title label.
         title = QLabel("Select a Profile")
         title.setAlignment(Qt.AlignCenter)
         title.setStyleSheet("font-size: 24px; font-weight: bold; color: white;")
         self.layout.addWidget(title)
 
-        # Load existing profiles and create buttons.
         self.profile_buttons = []
         self.load_profiles()
 
-        # "Add Profile" button.
         add_profile_btn = QPushButton("Add Profile")
         add_profile_btn.setObjectName("AddProfileButton")
         add_profile_btn.clicked.connect(self.open_profile_creation)
@@ -47,7 +43,6 @@ class ProfileSelectionPage(QWidget):
             self.profile_buttons.append(btn)
 
     def select_profile(self, profile):
-        # Emit the signal so that the main window can handle the selection.
         print("Selecting profile:", profile)
         self.profileSelected.emit(profile)
 
@@ -58,11 +53,8 @@ class ProfileSelectionPage(QWidget):
                     profiles = json.load(file)
                     if isinstance(profiles, list):
                         return profiles
-                    else:
-                        return []
             except Exception as e:
                 print("Error loading profiles:", e)
-                return []
         return []
 
     def clear_profile_buttons(self):
@@ -72,9 +64,10 @@ class ProfileSelectionPage(QWidget):
         self.profile_buttons.clear()
 
     def open_profile_creation(self):
-        # Use self.window() to get the top-level window
-        main_window = self.window()
-        if hasattr(main_window, "setCurrentPage"):
-            main_window.setCurrentPage("profile_creation")
+        # Assuming the parent of this page is the QStackedWidget that holds both
+        # the profile selection (index 0) and profile creation page (index 1).
+        if self.parent() is not None:
+            print("Switching to Profile Creation page.")
+            self.parent().setCurrentIndex(1)
         else:
-            print("Main window does not have setCurrentPage method.")
+            print("No parent found for profile selection page.")

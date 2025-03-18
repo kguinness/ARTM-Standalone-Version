@@ -1,11 +1,14 @@
 import json
 import os
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLineEdit, QPushButton, QLabel
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox
+from PyQt5.QtCore import Qt, pyqtSignal
 
 PROFILE_FILE = "profiles.json"
 
 class ProfileCreationPage(QWidget):
+    profileCreated = pyqtSignal()
+    backRequested = pyqtSignal()
+
     def __init__(self, parent=None):
         super(ProfileCreationPage, self).__init__(parent)
         self.initUI()
@@ -31,27 +34,51 @@ class ProfileCreationPage(QWidget):
 
         back_button = QPushButton("Back")
         back_button.setObjectName("BackButton")
-        back_button.clicked.connect(lambda: self.window().setCurrentPage("profile_selection"))
+        back_button.clicked.connect(self.go_back)
         self.layout.addWidget(back_button)
 
     def create_profile(self):
         profile_name = self.name_input.text().strip()
         if not profile_name:
+            QMessageBox.warning(self, "Input Error", "Profile name cannot be empty.")
             return
         profiles = self.get_profiles()
         if profile_name in profiles:
-            print("Profile name already exists!")
+            QMessageBox.warning(self, "Duplicate Profile", "Profile name already exists!")
             return
         profiles.append(profile_name)
-        self.save_profiles(profiles)
-        self.window().setCurrentPage("profile_selection")
+        if self.save_profiles(profiles):
+            print(f"Profile '{profile_name}' created successfully.")
+            self.profileCreated.emit()
+        else:
+            print("Failed to save profile.")
+
+    def go_back(self):
+        self.backRequested.emit()
 
     def get_profiles(self):
         if os.path.exists(PROFILE_FILE):
-            with open(PROFILE_FILE, "r") as file:
-                return json.load(file)
+            try:
+                with open(PROFILE_FILE, "r") as file:
+                    content = file.read().strip()
+                    if not content:
+                        return []
+                    profiles = json.loads(content)
+                    if isinstance(profiles, list):
+                        return profiles
+                    else:
+                        print("Profiles file is not a list. Using empty list instead.")
+                        return []
+            except Exception as e:
+                print("Error reading profiles:", e)
+                return []
         return []
 
     def save_profiles(self, profiles):
-        with open(PROFILE_FILE, "w") as file:
-            json.dump(profiles, file)
+        try:
+            with open(PROFILE_FILE, "w") as file:
+                json.dump(profiles, file)
+            return True
+        except Exception as e:
+            print("Error saving profiles:", e)
+            return False

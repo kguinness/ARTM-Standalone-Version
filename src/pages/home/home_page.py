@@ -68,5 +68,4 @@ class HomePage(QWidget):
         self.dropdown_container.addWidget(row)
 
     def set_profile(self, profile_name):
-        # Optionally display profile info on the Home page.
         print("HomePage: Profile set to", profile_name)

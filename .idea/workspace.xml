@@ -5,44 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 2.1.0">
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/gesture_capture/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/home/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/home/home_page_view.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_creation/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page_view.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_selection/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile _selection_page_view.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_view/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page_view.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/settings/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/profiles.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/globals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARTM.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Not Code/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.env.example" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/gestures.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/gesture_routes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/user_routes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/site.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Gesture_Capture_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Gesture_Recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/gesture_recognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Home_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Login_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Profile_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Register_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Settings_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/settings_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/gesture_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/gesture_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.qss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style.qss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/home/home_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +68,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/kmcgu/PycharmProjects/ARTM/main.py",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -225,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742321296317</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="version 2.1.0">
+      <option name="closed" value="true" />
+      <created>1742332220050</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742332220050</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="UnknownFeatures">
