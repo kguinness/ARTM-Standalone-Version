@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 2.1.0">
-      <change afterPath="$PROJECT_DIR$/src/globals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/home/home_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
+    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 3.0.0">
+      <change beforePath="$PROJECT_DIR$/profiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/profiles.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742332220050</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="version 3.0.0">
+      <option name="closed" value="true" />
+      <created>1742335472393</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1742335472393</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -227,7 +230,8 @@
     <MESSAGE value="version 2.0.0" />
     <MESSAGE value="version 2.0.1" />
     <MESSAGE value="version 2.1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 2.1.0" />
+    <MESSAGE value="version 3.0.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 3.0.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
