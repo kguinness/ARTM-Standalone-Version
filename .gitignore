@@ -1,1 +1,17 @@
-.env
+# Ignore virtual environment directories
+venv/
+env/
+
+# Ignore Python bytecode and cache files
+*.pyc
+__pycache__/
+
+# Ignore the debug script
+debug_script.py
+
+# Ignore IDE configuration directories (e.g., PyCharm)
+.idea/
+
+# You might also consider ignoring OS-specific files (optional)
+.DS_Store
+Thumbs.db
