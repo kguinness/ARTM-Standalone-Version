@@ -21,7 +21,6 @@ class ProfileSelectionPage(QWidget):
 
         title = QLabel("Select a Profile")
         title.setAlignment(Qt.AlignCenter)
-        title.setStyleSheet("font-size: 24px; font-weight: bold; color: white;")
         self.layout.addWidget(title)
 
         self.profile_buttons = []

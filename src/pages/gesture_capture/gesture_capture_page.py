@@ -16,15 +16,8 @@ class GestureCapturePage(QWidget):
     def __init__(self, parent=None):
         super(GestureCapturePage, self).__init__(parent)
 
-        # 1) Make the page background black to match your screenshot's style.
-        self.setStyleSheet("background-color: #000000;")
-
         # 2) Open the default camera (index 0). Adjust if needed (e.g., use 1).
         self.cap = cv2.VideoCapture(0)
-        if not self.cap.isOpened():
-            print("Error: Could not open video capture.")
-        else:
-            print("Camera successfully opened.")
 
         # 3) Initialize MediaPipe Hands and drawing utilities.
         self.mp_hands = mp.solutions.hands
@@ -58,14 +51,10 @@ class GestureCapturePage(QWidget):
         # (B) Result label (displays detected gesture)
         self.result_label = QLabel("No hand detected", self)
         self.result_label.setAlignment(Qt.AlignCenter)
-        self.result_label.setStyleSheet("color: #FFFFFF; font-size: 16px;")
         layout.addWidget(self.result_label)
 
         # (C) "Capture Gesture" button at the bottom
         self.capture_button = QPushButton("Capture Gesture", self)
-        self.capture_button.setStyleSheet(
-            "QPushButton { background-color: #FF69B4; color: #000; font-weight: bold; }"
-        )
         self.capture_button.clicked.connect(self.capture_custom_gesture)
         layout.addWidget(self.capture_button, alignment=Qt.AlignCenter)
 
