@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 1.1.0-a">
-      <change afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/settings/settings_page.qss" afterDir="false" />
+    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 1.1.1-a">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/style.qss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/profiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/profiles.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.qss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/home/home_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/home/home_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile _selection_page_view.qss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_view/profile_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_view/profile_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page.qss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/settings/settings_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/settings_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742479766047</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="version 1.1.1-a">
+      <option name="closed" value="true" />
+      <created>1743098951592</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1743098951592</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -276,7 +269,8 @@
     <MESSAGE value="version 3.0.1" />
     <MESSAGE value="version 1.0.0-a" />
     <MESSAGE value="version 1.0.1-a" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.0.1-a" />
+    <MESSAGE value="version 1.1.1-a" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.1.1-a" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
