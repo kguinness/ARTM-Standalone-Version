@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 1.1.2-a">
-      <change beforePath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
+    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 1.2.0-a">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/gesture_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/gesture_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743099703883</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="version 1.2.0-a">
+      <option name="closed" value="true" />
+      <created>1743100007224</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1743100007224</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -279,7 +288,8 @@
     <MESSAGE value="version 1.0.1-a" />
     <MESSAGE value="version 1.1.1-a" />
     <MESSAGE value="version 1.1.2-a" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.1.2-a" />
+    <MESSAGE value="version 1.2.0-a" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.2.0-a" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

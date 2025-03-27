@@ -13,10 +13,12 @@ mp_drawing = mp.solutions.drawing_utils
 # -------------------------------------------------------------------
 
 PREMADE_GESTURES = [
-    "Swipe Left",
-    "Swipe Right",
-    "Pinch",
-    "Zoom"
+    "Fist",
+    "Index Up",
+    "L",
+    "Peace Sign",
+    "Rock & Roll",
+    "Thumbs Up"
 ]
 
 def get_premade_gestures():
