@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
@@ -38,15 +39,12 @@ class BasicFrontendApp(QMainWindow):
         # Top Bar
         self.top_bar = QWidget()
         self.top_bar.setObjectName("TopBar")
-        self.top_bar.setStyleSheet("background-color: #4C4C4C;")
         top_layout = QHBoxLayout(self.top_bar)
         top_layout.setContentsMargins(10, 10, 10, 10)
         top_layout.setSpacing(10)
         top_layout.addStretch()
         self.title_button = QPushButton("ARTM")
         self.title_button.setObjectName("TitleButton")
-        self.title_button.setStyleSheet(
-            "color: #FF69B4; background: transparent; border: none; font-size: 24px; font-weight: bold;")
         self.title_button.clicked.connect(self.show_home)
         top_layout.addWidget(self.title_button, alignment=Qt.AlignCenter)
         top_layout.addStretch()
@@ -61,7 +59,6 @@ class BasicFrontendApp(QMainWindow):
         # Side Bar with navigation buttons
         self.side_bar = QWidget()
         self.side_bar.setObjectName("Sidebar")
-        self.side_bar.setStyleSheet("background-color: #222222;")
         side_layout = QVBoxLayout(self.side_bar)
         side_layout.setAlignment(Qt.AlignTop)
         profile_btn = QPushButton("Profile")
@@ -130,7 +127,22 @@ class BasicFrontendApp(QMainWindow):
 
 
 if __name__ == "__main__":
+    from PyQt5.QtWidgets import QApplication
+    import sys
+
     app = QApplication(sys.argv)
+
+    # Get the absolute path to style.qss
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    qss_path = os.path.join(base_dir, "style.qss")
+
+    try:
+        with open(qss_path, "r") as f:
+            app.setStyleSheet(f.read())
+    except Exception as e:
+        print("Error loading style.qss:", e)
+
     window = BasicFrontendApp()
     window.show()
+
     sys.exit(app.exec_())

@@ -134,3 +134,10 @@ class GestureCapturePage(QWidget):
             self.cap.release()
         self.hands_detector.close()
         super().closeEvent(event)
+
+    def load_styles(self):
+        try:
+            with open("src/pages/gesture_capture/gesture_capture_page.qss", "r") as f:
+                self.setStyleSheet(f.read())
+        except Exception as e:
+            print("Error loading gesture_capture_page.qss:", e)

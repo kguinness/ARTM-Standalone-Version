@@ -4,10 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 1.0.0-a">
-      <change afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page_view.qss" afterDir="false" />
+    <list default="true" id="5ad9c613-9f52-4acb-8806-e8a794cb4b48" name="Changes" comment="version 1.1.0-a">
+      <change afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/settings/settings_page.qss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/style.qss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style.qss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/profiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/profiles.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/gesture_capture/gesture_capture_page.qss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/home/home_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/home/home_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/home_page.qss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_creation/profile_creation_page.qss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile _selection_page_view.qss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_view/profile_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile_view/profile_page_view.qss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile_view/profile_page.qss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/settings/settings_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/settings/settings_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +120,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-14705d77f0bb-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.25659.43" />
+        <option value="bundled-python-sdk-4f4e415b4190-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.26053.29" />
       </set>
     </attachedChunks>
   </component>
@@ -223,12 +237,21 @@
       <option name="project" value="LOCAL" />
       <updated>1742407079731</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="version 1.0.1-a">
+      <option name="closed" value="true" />
+      <created>1742479766047</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1742479766047</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.qss" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -252,7 +275,8 @@
     <MESSAGE value="version 3.0.0" />
     <MESSAGE value="version 3.0.1" />
     <MESSAGE value="version 1.0.0-a" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 1.0.0-a" />
+    <MESSAGE value="version 1.0.1-a" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.0.1-a" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -265,6 +289,10 @@
           <url>file://$PROJECT_DIR$/backend/routes/__init__.py</url>
           <line>1</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/pages/profile_selection/profile_selection_page.py</url>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

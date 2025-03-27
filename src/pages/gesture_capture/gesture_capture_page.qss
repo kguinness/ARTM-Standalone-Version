@@ -1,0 +1,12 @@
+/* Gesture Capture Page Specific Styles */
+#InstructionsLabel {
+    font-size: 16px;
+    color: #B72527;
+}
+
+#CaptureButton {
+    background-color: #B72527;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px;
+}

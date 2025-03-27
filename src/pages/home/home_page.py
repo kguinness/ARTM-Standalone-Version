@@ -1,71 +1,91 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QComboBox, QPushButton
-from PyQt5.QtCore import Qt
-from utils.gesture_utils import PREMADE_GESTURES
+import json
+import os
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox
+from PyQt5.QtCore import Qt, pyqtSignal
 
+PROFILE_FILE = "profiles.json"
 
-class DropdownRow(QWidget):
-    def __init__(self, container_layout, parent=None):
-        super(DropdownRow, self).__init__(parent)
-        self.container_layout = container_layout
-        self.initUI()
+class ProfileCreationPage(QWidget):
+    profileCreated = pyqtSignal()
+    backRequested = pyqtSignal()
 
-    def initUI(self):
-        self.layout = QHBoxLayout(self)
-        self.layout.setSpacing(10)
-        self.layout.setContentsMargins(0, 0, 0, 0)
-
-        self.gesture_dropdown = QComboBox()
-        self.gesture_dropdown.setObjectName("GestureDropdown")
-        self.gesture_dropdown.addItem("Select Gesture")
-        self.gesture_dropdown.addItems(PREMADE_GESTURES + ["Capture Gesture"])
-        self.layout.addWidget(self.gesture_dropdown)
-
-        self.macro_dropdown = QComboBox()
-        self.macro_dropdown.setObjectName("MacroDropdown")
-        self.macro_dropdown.addItem("Select Macro")
-        self.macro_dropdown.addItems(["Open Browser", "Open Editor", "Volume Up", "Volume Down"])
-        self.layout.addWidget(self.macro_dropdown)
-
-        self.delete_button = QPushButton("-")
-        self.delete_button.setFixedSize(30, 30)
-        self.delete_button.setObjectName("DeleteButton")
-        self.delete_button.clicked.connect(self.delete_self)
-        self.layout.addWidget(self.delete_button)
-
-    def delete_self(self):
-        try:
-            if self.container_layout is not None:
-                self.container_layout.removeWidget(self)
-            self.setParent(None)
-            self.deleteLater()
-        except Exception as e:
-            print("Error deleting dropdown row:", e)
-
-
-class HomePage(QWidget):
     def __init__(self, parent=None):
-        super(HomePage, self).__init__(parent)
+        super(ProfileCreationPage, self).__init__(parent)
         self.initUI()
 
     def initUI(self):
         self.layout = QVBoxLayout(self)
-        self.layout.setAlignment(Qt.AlignTop)
+        self.layout.setAlignment(Qt.AlignCenter)
         self.setLayout(self.layout)
 
-        self.dropdown_container = QVBoxLayout()
-        self.layout.addLayout(self.dropdown_container)
+        title = QLabel("Create a New Profile")
+        title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet("font-size: 24px; font-weight: bold; color: white;")
+        self.layout.addWidget(title)
 
-        self.addDropdownRow()
+        self.name_input = QLineEdit(self)
+        self.name_input.setPlaceholderText("Enter profile name")
+        self.layout.addWidget(self.name_input)
 
-        self.plus_button = QPushButton("+")
-        self.plus_button.setFixedSize(60, 60)
-        self.plus_button.setObjectName("PlusButton")
-        self.plus_button.clicked.connect(self.addDropdownRow)
-        self.layout.addWidget(self.plus_button, alignment=Qt.AlignCenter)
+        create_button = QPushButton("Create Profile")
+        create_button.setObjectName("CreateProfileButton")
+        create_button.clicked.connect(self.create_profile)
+        self.layout.addWidget(create_button)
 
-    def addDropdownRow(self):
-        row = DropdownRow(self.dropdown_container)
-        self.dropdown_container.addWidget(row)
+        back_button = QPushButton("Back")
+        back_button.setObjectName("BackButton")
+        back_button.clicked.connect(self.go_back)
+        self.layout.addWidget(back_button)
 
-    def set_profile(self, profile_name):
-        print("HomePage: Profile set to", profile_name)
+    def create_profile(self):
+        profile_name = self.name_input.text().strip()
+        if not profile_name:
+            QMessageBox.warning(self, "Input Error", "Profile name cannot be empty.")
+            return
+        profiles = self.get_profiles()
+        if profile_name in profiles:
+            QMessageBox.warning(self, "Duplicate Profile", "Profile name already exists!")
+            return
+        profiles.append(profile_name)
+        if self.save_profiles(profiles):
+            print(f"Profile '{profile_name}' created successfully.")
+            self.profileCreated.emit()
+        else:
+            print("Failed to save profile.")
+
+    def go_back(self):
+        self.backRequested.emit()
+
+    def get_profiles(self):
+        if os.path.exists(PROFILE_FILE):
+            try:
+                with open(PROFILE_FILE, "r") as file:
+                    content = file.read().strip()
+                    if not content:
+                        return []
+                    profiles = json.loads(content)
+                    if isinstance(profiles, list):
+                        return profiles
+                    else:
+                        print("Profiles file is not a list. Using empty list instead.")
+                        return []
+            except Exception as e:
+                print("Error reading profiles:", e)
+                return []
+        return []
+
+    def save_profiles(self, profiles):
+        try:
+            with open(PROFILE_FILE, "w") as file:
+                json.dump(profiles, file)
+            return True
+        except Exception as e:
+            print("Error saving profiles:", e)
+            return False
+
+    def load_home_page_styles(self):
+        try:
+            with open("src/pages/home/home_page.qss", "r") as f:
+                self.setStyleSheet(f.read())
+        except Exception as e:
+            print("Error loading home_page.qss:", e)

@@ -1,0 +1,33 @@
+/* Home Page Specific Styles */
+
+/* Style for the Plus Button */
+#PlusButton {
+    background-color: #B72527;
+    color: #FFFFFF;
+    border: none;
+    font-size: 20px;
+    border-radius: 30px;
+}
+
+/* Styling for QComboBox dropdowns in the Home Page */
+QComboBox {
+    background-color: #B72527;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    padding: 5px;
+}
+
+/* Styling for the dropdown list items */
+QComboBox QAbstractItemView {
+    background-color: #B72527;
+    color: #FFFFFF;
+    selection-background-color: #FFFFFF;
+    selection-color: #B72527;
+}
+
+/* Optional: Style for the Delete Button in DropdownRow */
+#DeleteButton {
+    background-color: #B72527;
+    color: #FFFFFF;
+    border: none;
+}

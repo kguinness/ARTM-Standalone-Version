@@ -16,3 +16,10 @@ class ProfilePage(QWidget):
 
     def load_profile(self, profile_name):
         self.profile_label.setText(f"Logged in as: {profile_name}")
+
+    def load_styles(self):
+        try:
+            with open("src/pages/profile_view/profile_page.qss", "r") as f:
+                self.setStyleSheet(f.read())
+        except Exception as e:
+            print("Error loading profile_page.qss:", e)

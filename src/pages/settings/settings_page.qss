@@ -1,0 +1,9 @@
+/* Settings Page Specific Styles */
+#SettingsLabel {
+    font-size: 18px;
+    color: #B72527;
+}
+
+#ExampleCheckbox {
+    color: #B72527;
+}

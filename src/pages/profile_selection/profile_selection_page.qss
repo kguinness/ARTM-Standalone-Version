@@ -1,0 +1,13 @@
+/* Profile Selection Page Specific Styles */
+#ProfileList {
+    background-color: #FFFFFF;
+    border: 1px solid #B72527;
+    color: #B72527;
+}
+
+#CreateProfileButton {
+    background-color: #B72527;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px;
+}

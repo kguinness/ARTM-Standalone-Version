@@ -12,3 +12,10 @@ class SettingsPage(QWidget):
         label = QLabel("Settings Page")
         label.setAlignment(Qt.AlignCenter)
         layout.addWidget(label)
+
+    def load_styles(self):
+        try:
+            with open("src/pages/settings/settings_page.qss", "r") as f:
+                self.setStyleSheet(f.read())
+        except Exception as e:
+            print("Error loading settings_page.qss:", e)

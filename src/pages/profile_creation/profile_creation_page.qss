@@ -1,0 +1,19 @@
+/* Profile Creation Page Specific Styles */
+#NameLabel {
+    font-size: 16px;
+    color: #B72527;
+}
+
+#NameEdit {
+    border: 1px solid #B72527;
+    padding: 5px;
+    color: #B72527;
+}
+
+#CreateButton, #BackButton {
+    background-color: #B72527;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px;
+    margin-top: 5px;
+}

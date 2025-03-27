@@ -71,3 +71,10 @@ class ProfileSelectionPage(QWidget):
             self.parent().setCurrentIndex(1)
         else:
             print("No parent found for profile selection page.")
+
+    def load_styles(self):
+        try:
+            with open("src\pages\profile_selection\profile_selection_page.qss", "r") as f:
+                self.setStyleSheet(f.read())
+        except Exception as e:
+            print("Error loading profile_selection_page.qss:", e)

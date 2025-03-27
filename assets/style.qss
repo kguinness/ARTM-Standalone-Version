@@ -1,89 +1,46 @@
-/* assets/style.qss */
-
-/* Global widget style */
+/* Global Defaults */
 QWidget {
-    background-color: #1e1e1e;
-    color: white;
+    background-color: #FFFFFF; /* Main background */
+    color: #000000;
     font-family: Arial, sans-serif;
 }
 
-/* Buttons */
-QPushButton {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #444;
-    color: white;
+/* Top Bar */
+#TopBar {
+    background-color: #B72527;
 }
 
-QPushButton:hover {
-    background-color: #666;
-}
-
-/* Specific IDs */
+/* Title Button in Top Bar */
 #TitleButton {
-    font-size: 24px;
-    font-weight: bold;
+    color: #FFFFFF;
     background: transparent;
-    width: 200px;
-}
-
-#ProfileButton {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px;
-    background-color: #444;
-    border-radius: 10px;
-}
-
-#AddProfileButton {
-    background-color: #ff4081;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-#CreateProfileButton {
-    background-color: #ff4081;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-#BackButton {
-    background-color: #333;
-    border-radius: 8px;
-}
-
-/* Home Page Dropdowns */
-#GestureDropdown, #MacroDropdown {
-    background-color: #333;
-    color: white;
-    border: 2px solid #FF69B4;
-    border-radius: 5px;
-    padding: 6px;
-}
-#PlusButton {
-    background-color: #FF69B4;
-    color: white;
+    border: none;
     font-size: 24px;
     font-weight: bold;
-    border-radius: 30px;
-}
-#PlusButton:hover {
-    background-color: #FFA8D8;
-}
-#DeleteButton {
-    background-color: #FF69B4;
-    color: black;
-    border-radius: 5px;
-    padding: 4px;
-}
-#DeleteButton:hover {
-    background-color: #FFA8D8;
 }
 
-/* Profile Page */
-#ProfileLabel {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
+/* Sidebar */
+#Sidebar {
+    background-color: #B72527;
+}
+
+/* Sidebar Buttons */
+#SidebarButton {
+    color: #FFFFFF;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    text-align: left;
+}
+
+#SidebarButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Global QPushButton Defaults (applies to buttons not overridden by specific selectors) */
+QPushButton {
+    background-color: transparent;
+    border: 1px solid #B72527;
+    color: #B72527;
+    padding: 5px;
 }
